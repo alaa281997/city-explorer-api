@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/alaa281997/city-explorer-api#readme",
   "dependencies": {
+    "ajax": "0.0.4",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
