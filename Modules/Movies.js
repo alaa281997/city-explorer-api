@@ -9,17 +9,21 @@ function movieHandler(req, res) {
     let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${getMovie}`;
     
     if (inMemoryMovie[getMovie] !== undefined) {
-        response.send(inMemoryMovie[getMovie])
-        console.log('New data')
+        console.log('get movie from memory')
+
+        res.send(inMemoryMovie[getMovie])
     } else {
+        console.log('Data from the Api')
+
         axios
             .get(movieUrl)
             .then(result => {
                 const movieArr = result.data.results.map(movieItem => {
                     return new Movie(movieItem);
                 })
+                inMemoryMovie[getMovie] = movieArr;
+
                 res.send(movieArr);
-                console.log('Data from the Memory Movie')
             })
             .catch(err => {
                 res.status(500).send(`Not found ${err}`);

@@ -7,10 +7,7 @@ function weatherHandler(req, res) {
 
     let weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${getWeather}&key=${key}`;
     
-    if (inMemoryWeather[getWeather] !== undefined) {
-        console.log('New data')
-        response.send(inMemoryWeather[getWeather])
-    } else {
+    
         axios
             .get(weatherUrl)
             .then(result => {
@@ -18,12 +15,11 @@ function weatherHandler(req, res) {
                      return new Forecast(item);
                 })
                 res.send(weatherArr);
-              console.log('Data from the Memory Weather');
             })
             .catch(err => {
                 res.status(500).send(`Not found ${err}`);
             })
-    }
+    
 }
 class Forecast {
     constructor(item) {
